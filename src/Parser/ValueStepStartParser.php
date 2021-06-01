@@ -52,10 +52,10 @@ class ValueStepStartParser implements ValueStepParserInterface
     private function checkWhiteSpace(ValueParserState $state)
     {
         if ($state->getCurrentChar()->isWhiteSpace()) {
-            throw new DotenvParserException(
-                sprintf('Whitespace after assignment operator are not allowed. Line %s',
-                    $state->getLineNumber()
-                ));
+            throw new DotenvParserException(sprintf(
+                'Whitespace after assignment operator are not allowed. Line %s',
+                $state->getLineNumber()
+            ));
         }
     }
 
