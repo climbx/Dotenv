@@ -74,6 +74,8 @@ class ParserTest extends TestCase
             # Quotes
             [['FOO="BAR'], 'Closing quote is missing for value. Line 1'],
             [['FOO=\'BAR'], 'Closing quote is missing for value. Line 1'],
+            [['FOO="'], 'Closing quote is missing for value. Line 1'],
+            [['FOO=\''], 'Closing quote is missing for value. Line 1'],
             [['FOO=BAR"'], 'Opening quote is missing for value. Line 1'],
             [['FOO=BAR\''], 'Opening quote is missing for value. Line 1'],
             [['FOO=BAR"BAZ'], 'Opening quote is missing for value. Line 1'],
