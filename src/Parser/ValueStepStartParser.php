@@ -21,19 +21,8 @@ class ValueStepStartParser implements ValueStepParserInterface
         $state->setStepToMiddle();
 
         // Step 2
-        if ($currentChar->isWhiteSpace()) {
-            throw new DotenvParserException(sprintf(
-                'Whitespace after assignment operator are not allowed. Line %s',
-                $state->getLineNumber()
-            ));
-        }
-
-        if ($currentChar->isQuote() && $state->isLastLineChar()) {
-            throw new DotenvParserException(sprintf(
-                'Closing quote is missing for value. Line %s',
-                $state->getLineNumber()
-            ));
-        }
+        $this->checkWhiteSpace($state);
+        $this->checkClosingQuote($state);
 
         // Step 3
         if ($currentChar->isSingleQuote()) {
@@ -53,5 +42,35 @@ class ValueStepStartParser implements ValueStepParserInterface
 
         // Step 4
         $state->addCurrentCharToValue();
+    }
+
+    /**
+     * @param ValueParserState $state
+     *
+     * @throws DotenvParserException
+     */
+    private function checkWhiteSpace(ValueParserState $state)
+    {
+        if ($state->getCurrentChar()->isWhiteSpace()) {
+            throw new DotenvParserException(
+                sprintf('Whitespace after assignment operator are not allowed. Line %s',
+                    $state->getLineNumber()
+                ));
+        }
+    }
+
+    /**
+     * @param ValueParserState $state
+     *
+     * @throws DotenvParserException
+     */
+    private function checkClosingQuote(ValueParserState $state)
+    {
+        if ($state->getCurrentChar()->isQuote() && $state->isLastLineChar()) {
+            throw new DotenvParserException(sprintf(
+                'Closing quote is missing for value. Line %s',
+                $state->getLineNumber()
+            ));
+        }
     }
 }
