@@ -13,6 +13,11 @@ use PHPUnit\Framework\TestCase;
  * @covers \Climbx\Dotenv\Parser\KeyParser
  * @covers \Climbx\Dotenv\Parser\ValueParser
  * @covers \Climbx\Dotenv\Parser\ValueParserState
+ * @covers \Climbx\Dotenv\Parser\ValueStepStartParser
+ * @covers \Climbx\Dotenv\Parser\ValueStepMiddleParser
+ * @covers \Climbx\Dotenv\Parser\ValueStepMiddleReferenceParser
+ * @covers \Climbx\Dotenv\Parser\ValueStepEndParser
+ * @covers \Climbx\Dotenv\Parser\Reference
  * @covers \Climbx\Dotenv\Parser\Char
  * @covers \Climbx\Dotenv\Parser\DotenvParserException
  */
