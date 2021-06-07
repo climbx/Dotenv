@@ -4,17 +4,22 @@ namespace Climbx\Dotenv\Parser;
 
 class ValueParser
 {
+    /**
+     * @var ValueParserState
+     */
     private ValueParserState $state;
-    private ValueStepParserInterface $stepStartParser;
-    private ValueStepParserInterface $stepMiddleParser;
-    private ValueStepParserInterface $stepEndParser;
+
+    /**
+     * @var ValueStepParserInterface[]
+     */
+    private array $stepParsers;
 
     public function __construct()
     {
         $this->state = new ValueParserState();
-        $this->stepStartParser = new ValueStepStartParser();
-        $this->stepMiddleParser = new ValueStepMiddleParser();
-        $this->stepEndParser = new ValueStepEndParser();
+        $this->stepParsers[ValueParserState::STEP_START] = new ValueStepStartParser();
+        $this->stepParsers[ValueParserState::STEP_MIDDLE] = new ValueStepMiddleParser();
+        $this->stepParsers[ValueParserState::STEP_END] = new ValueStepEndParser();
     }
 
     /**
@@ -40,14 +45,7 @@ class ValueParser
             }
 
             $this->state->setCurrentChar($char);
-
-            $parserName = match ($this->state->getStep()) {
-                ValueParserState::STEP_START => 'stepStartParser',
-                ValueParserState::STEP_MIDDLE => 'stepMiddleParser',
-                ValueParserState::STEP_END => 'stepEndParser',
-            };
-
-            $this->$parserName->parseChar($this->state);
+            $this->stepParsers[$this->state->getStep()]->parseChar($this->state);
         }
 
         return $this->state->getValue();
