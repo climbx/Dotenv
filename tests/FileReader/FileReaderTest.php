@@ -2,7 +2,7 @@
 
 namespace Climbx\Tests\Dotenv\FileReader;
 
-use Climbx\Dotenv\FileReader\FileErrorException;
+use Climbx\Dotenv\Exception\FileErrorException;
 use Climbx\Dotenv\FileReader\FileReader;
 use PHPUnit\Framework\TestCase;
 

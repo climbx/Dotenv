@@ -2,6 +2,8 @@
 
 namespace Climbx\Dotenv\Parser;
 
+use Climbx\Dotenv\Exception\ParserException;
+
 class ValueParser
 {
     /**
@@ -27,7 +29,7 @@ class ValueParser
      * @param array $data
      *
      * @return string
-     * @throws DotenvParserException
+     * @throws ParserException
      */
     public function getValue(Line $line, array $data): string
     {

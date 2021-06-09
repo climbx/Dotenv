@@ -2,6 +2,8 @@
 
 namespace Climbx\Dotenv\Parser;
 
+use Climbx\Dotenv\Exception\ParserException;
+
 class KeyParser
 {
     private const VALID_NAME_REGEX = '^[a-zA-Z]+(_?[a-zA-Z0-9]+)*$';
@@ -10,19 +12,19 @@ class KeyParser
      * @param Line $line
      *
      * @return string
-     * @throws DotenvParserException
+     * @throws ParserException
      */
     public function getKey(Line $line): string
     {
         if ($this->hasWhitespaceAtTheEnd($line->getKeyData())) {
-            throw new DotenvParserException(sprintf(
+            throw new ParserException(sprintf(
                 'Whitespace before assignment operator are not allowed. Line %s',
                 $line->getNumber()
             ));
         }
 
         if ($this->isNotValid($line->getKeyData())) {
-            throw new DotenvParserException(sprintf(
+            throw new ParserException(sprintf(
                 'Illegal key name. Line %s',
                 $line->getNumber()
             ));

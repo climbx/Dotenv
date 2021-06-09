@@ -2,6 +2,8 @@
 
 namespace Climbx\Dotenv\Parser;
 
+use Climbx\Dotenv\Exception\ParserException;
+
 class ValueStepMiddleReferenceParser implements ValueStepParserInterface
 {
     use ValueStepMiddleParserTrait;
@@ -9,7 +11,7 @@ class ValueStepMiddleReferenceParser implements ValueStepParserInterface
     /**
      * @param ValueParserState $state
      *
-     * @throws DotenvParserException
+     * @throws ParserException
      */
     public function parseChar(ValueParserState $state): void
     {
@@ -69,7 +71,7 @@ class ValueStepMiddleReferenceParser implements ValueStepParserInterface
     /**
      * @param ValueParserState $state
      *
-     * @throws DotenvParserException
+     * @throws ParserException
      */
     private function parseEndReferenceChar(ValueParserState $state): void
     {
@@ -77,7 +79,7 @@ class ValueStepMiddleReferenceParser implements ValueStepParserInterface
 
         // Step 1
         if ($state->getCurrentChar()->isClosingBrace() && !$state->getReference()->hasBraces()) {
-            throw new DotenvParserException(sprintf(
+            throw new ParserException(sprintf(
                 'Opening brace is missing in reference declaration. Line %s',
                 $state->getLineNumber()
             ));
@@ -115,7 +117,7 @@ class ValueStepMiddleReferenceParser implements ValueStepParserInterface
     /**
      * @param ValueParserState $state
      *
-     * @throws DotenvParserException
+     * @throws ParserException
      */
     private function parseLastLineChar(ValueParserState $state): void
     {
@@ -134,12 +136,12 @@ class ValueStepMiddleReferenceParser implements ValueStepParserInterface
     /**
      * @param ValueParserState $state
      *
-     * @throws DotenvParserException
+     * @throws ParserException
      */
     private function checkClosingBrace(ValueParserState $state): void
     {
         if ($state->getReference()->hasBraces() && !$state->getCurrentChar()->isClosingBrace()) {
-            throw new DotenvParserException(sprintf(
+            throw new ParserException(sprintf(
                 'Closing brace is missing in reference declaration. Line %s',
                 $state->getLineNumber()
             ));

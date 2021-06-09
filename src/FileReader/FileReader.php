@@ -2,6 +2,8 @@
 
 namespace Climbx\Dotenv\FileReader;
 
+use Climbx\Dotenv\Exception\FileErrorException;
+
 class FileReader implements FileReaderInterface
 {
     /**

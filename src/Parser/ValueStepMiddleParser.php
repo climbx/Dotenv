@@ -2,6 +2,8 @@
 
 namespace Climbx\Dotenv\Parser;
 
+use Climbx\Dotenv\Exception\ParserException;
+
 /*
  * This class parses all the characters from the second up to the end-of-value one.
  */
@@ -19,7 +21,7 @@ class ValueStepMiddleParser implements ValueStepParserInterface
     /**
      * @param ValueParserState $state
      *
-     * @throws DotenvParserException
+     * @throws ParserException
      */
     public function parseChar(ValueParserState $state): void
     {
@@ -29,7 +31,7 @@ class ValueStepMiddleParser implements ValueStepParserInterface
 
         // Step 1
         if ($currentChar->isQuote() && $state->isNotQuoted()) {
-            throw new DotenvParserException(sprintf(
+            throw new ParserException(sprintf(
                 'Opening quote is missing for value. Line %s',
                 $state->getLineNumber()
             ));
@@ -80,14 +82,14 @@ class ValueStepMiddleParser implements ValueStepParserInterface
     /**
      * @param ValueParserState $state
      *
-     * @throws DotenvParserException
+     * @throws ParserException
      */
     private function parseLastLineChar(ValueParserState $state)
     {
         $state->addCurrentCharToValue();
 
         if ($state->isQuoted() && !$state->getCurrentChar()->isQuote()) {
-            throw new DotenvParserException(sprintf(
+            throw new ParserException(sprintf(
                 'Closing quote is missing for value. Line %s',
                 $state->getLineNumber()
             ));

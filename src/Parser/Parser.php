@@ -2,6 +2,8 @@
 
 namespace Climbx\Dotenv\Parser;
 
+use Climbx\Dotenv\Exception\ParserException;
+
 class Parser implements ParserInterface
 {
     private LineParser $lineParser;
@@ -19,7 +21,7 @@ class Parser implements ParserInterface
      * @param array $fileContent
      *
      * @return array
-     * @throws DotenvParserException
+     * @throws ParserException
      */
     public function getParsedData(array $fileContent): array
     {

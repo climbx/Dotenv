@@ -2,6 +2,8 @@
 
 namespace Climbx\Dotenv\Parser;
 
+use Climbx\Dotenv\Exception\ParserException;
+
 /*
  * This class parses the first character of the value.
  */
@@ -10,7 +12,7 @@ class ValueStepStartParser implements ValueStepParserInterface
     /**
      * @param ValueParserState $state
      *
-     * @throws DotenvParserException
+     * @throws ParserException
      */
     public function parseChar(ValueParserState $state): void
     {
@@ -47,12 +49,12 @@ class ValueStepStartParser implements ValueStepParserInterface
     /**
      * @param ValueParserState $state
      *
-     * @throws DotenvParserException
+     * @throws ParserException
      */
     private function checkWhiteSpace(ValueParserState $state)
     {
         if ($state->getCurrentChar()->isWhiteSpace()) {
-            throw new DotenvParserException(sprintf(
+            throw new ParserException(sprintf(
                 'Whitespace after assignment operator are not allowed. Line %s',
                 $state->getLineNumber()
             ));
@@ -62,12 +64,12 @@ class ValueStepStartParser implements ValueStepParserInterface
     /**
      * @param ValueParserState $state
      *
-     * @throws DotenvParserException
+     * @throws ParserException
      */
     private function checkClosingQuote(ValueParserState $state)
     {
         if ($state->getCurrentChar()->isQuote() && $state->isLastLineChar()) {
-            throw new DotenvParserException(sprintf(
+            throw new ParserException(sprintf(
                 'Closing quote is missing for value. Line %s',
                 $state->getLineNumber()
             ));

@@ -2,6 +2,8 @@
 
 namespace Climbx\Dotenv\Parser;
 
+use Climbx\Dotenv\Exception\ParserException;
+
 class LineParser
 {
     /**
@@ -41,7 +43,7 @@ class LineParser
      * @param string $lineContent
      *
      * @return Line
-     * @throws DotenvParserException
+     * @throws ParserException
      */
     public function getLineRawData(int $lineIndex, string $lineContent): Line
     {
@@ -60,14 +62,14 @@ class LineParser
      * @param string $lineContent
      *
      * @return int
-     * @throws DotenvParserException
+     * @throws ParserException
      */
     private function getAssignmentOperatorIndex(string $lineContent, int $lineNumber): int
     {
         $index = strpos($lineContent, '=');
 
         if (false === $index) {
-            throw new DotenvParserException(sprintf(
+            throw new ParserException(sprintf(
                 'Assignment operator is missing. Line %s',
                 $lineNumber
             ));
@@ -82,12 +84,12 @@ class LineParser
      * @param int    $lineNumber
      *
      * @return string
-     * @throws DotenvParserException
+     * @throws ParserException
      */
     private function getKeyDataFromContent(string $lineContent, int $index, int $lineNumber): string
     {
         if ($index === 0) {
-            throw new DotenvParserException(sprintf(
+            throw new ParserException(sprintf(
                 'Key is missing. Line %s',
                 $lineNumber
             ));

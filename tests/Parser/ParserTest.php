@@ -2,7 +2,7 @@
 
 namespace Climbx\Tests\Dotenv\Parser;
 
-use Climbx\Dotenv\Parser\DotenvParserException;
+use Climbx\Dotenv\Exception\ParserException;
 use Climbx\Dotenv\Parser\Parser;
 use PHPUnit\Framework\TestCase;
 
@@ -51,7 +51,7 @@ class ParserTest extends TestCase
     {
         $parser = new Parser();
 
-        $this->expectException(DotenvParserException::class);
+        $this->expectException(ParserException::class);
         $this->expectExceptionMessage($message);
         $parser->getParsedData($data);
     }
