@@ -23,15 +23,26 @@ class FileReaderTest extends TestCase
     public function testGoodFilePath()
     {
         $fileReader = new FileReader();
-        $fileContent = $fileReader->getContentAsArray(__FILE__);
+
+        $tmpdir = sys_get_temp_dir();
+        $filename = tempnam($tmpdir, 'env');
+
+        $fileContent = $fileReader->getContentAsArray($filename);
 
         $this->assertIsArray($fileContent);
+
+        unlink($filename);
     }
 
     public function testFileContentHasEmptyLines()
     {
         $fileReader = new FileReader();
-        $fileContent = $fileReader->getContentAsArray(__FILE__);
+
+        $tmpdir = sys_get_temp_dir();
+        $filePath = tempnam($tmpdir, 'env');
+        file_put_contents($filePath, "foo=bar\n\nfoo=baz");
+
+        $fileContent = $fileReader->getContentAsArray($filePath);
 
         $hasEmptyLine = false;
         foreach ($fileContent as $line) {
@@ -41,5 +52,7 @@ class FileReaderTest extends TestCase
         }
 
         $this->assertTrue($hasEmptyLine);
+
+        unlink($filePath);
     }
 }
