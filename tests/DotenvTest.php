@@ -21,7 +21,6 @@ use PHPUnit\Framework\TestCase;
  * @covers \Climbx\Dotenv\Parser\ValueStepEndParser
  * @covers \Climbx\Dotenv\Parser\Reference
  * @covers \Climbx\Dotenv\Parser\Char
- * @covers \Climbx\Dotenv\Parser\DotenvParserException
  */
 class DotenvTest extends TestCase
 {
