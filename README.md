@@ -90,5 +90,5 @@ Missing references don't throw an exception. If a reference is not found,
 the value is set to an empty string.
 ```dotenv
 missing1=$foo     # outputs ['missing1' => '']
-missing2=\${foo}  # outputs ['missing2' => '']
+missing2=${foo}  # outputs ['missing2' => '']
 ```
