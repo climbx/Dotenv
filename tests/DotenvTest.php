@@ -1,6 +1,6 @@
 <?php
 
-namespace Climbx\Tests\Dotenv;
+namespace Climbx\Dotenv\Tests;
 
 use Climbx\Dotenv\Dotenv;
 use PHPUnit\Framework\TestCase;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Climbx\Tests\Dotenv\Parser;
+namespace Climbx\Dotenv\Tests\Parser;
 
 use Climbx\Dotenv\Exception\ParserException;
 use Climbx\Dotenv\Parser\Parser;

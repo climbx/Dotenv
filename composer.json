@@ -14,9 +14,11 @@
     ],
     "autoload": {
         "psr-4": {
-            "Climbx\\Dotenv\\": "src/",
-            "Climbx\\Tests\\Dotenv\\": "tests/"
+            "Climbx\\Dotenv\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": { "Climbx\\Dotenv\\Tests\\": "tests/" }
     },
     "require": {
         "php": ">=8.0"

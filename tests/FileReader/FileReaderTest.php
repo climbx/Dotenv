@@ -1,6 +1,6 @@
 <?php
 
-namespace Climbx\Tests\Dotenv\FileReader;
+namespace Climbx\Dotenv\Tests\FileReader;
 
 use Climbx\Dotenv\Exception\FileErrorException;
 use Climbx\Dotenv\FileReader\FileReader;
