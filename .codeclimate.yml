@@ -13,4 +13,6 @@ plugins:
         - php
 
 exclude_patterns:
-  - "Tests/"
+  - "tests/"
+  - "vendor/"
+  - "*.*"

@@ -1,7 +1,7 @@
 {
     "name": "climbx/dotenv",
     "description": ".env files manager",
-    "version": "1.0.2",
+    "version": "1.0.1",
     "type": "library",
     "keywords": ["php", "env"],
     "time": "2021-06-11",
@@ -14,11 +14,11 @@
     ],
     "autoload": {
         "psr-4": {
-            "Climbx\\Dotenv\\": ""
-        },
-        "exclude-from-classmap": [
-            "/Tests/"
-        ]
+            "Climbx\\Dotenv\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": { "Climbx\\Dotenv\\Tests\\": "tests/" }
     },
     "require": {
         "php": ">=8.0"
