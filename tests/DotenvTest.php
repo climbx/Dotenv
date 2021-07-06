@@ -7,7 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Climbx\Dotenv\Dotenv
- * @covers \Climbx\Dotenv\FileReader\FileReader
  * @covers \Climbx\Dotenv\Loader\Loader
  * @covers \Climbx\Dotenv\Parser\Parser
  * @covers \Climbx\Dotenv\Parser\LineParser
