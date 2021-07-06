@@ -2,8 +2,7 @@
 
 namespace Climbx\Dotenv;
 
-use Climbx\Dotenv\FileReader\FileReader;
-use Climbx\Dotenv\FileReader\FileReaderInterface;
+use Climbx\Filesystem\FileHelper;
 use Climbx\Dotenv\Loader\Loader;
 use Climbx\Dotenv\Loader\LoaderInterface;
 use Climbx\Dotenv\Parser\Parser;
@@ -11,13 +10,13 @@ use Climbx\Dotenv\Parser\ParserInterface;
 
 class Dotenv implements DotenvInterface
 {
-    private FileReaderInterface $fileReader;
+    private FileHelper $fileHelper;
     private ParserInterface $parser;
     private LoaderInterface $loader;
 
     public function __construct()
     {
-        $this->fileReader = new FileReader();
+        $this->fileHelper = new FileHelper();
         $this->parser = new Parser();
         $this->loader = new Loader();
     }
@@ -26,7 +25,7 @@ class Dotenv implements DotenvInterface
      */
     public function load(string $filePath): void
     {
-        $fileContent = $this->fileReader->getContentAsArray($filePath);
+        $fileContent = $this->fileHelper->getContentAsArray($filePath);
 
         if (empty($fileContent)) {
             return;
@@ -46,7 +45,7 @@ class Dotenv implements DotenvInterface
      */
     public function overload(string $filePath): void
     {
-        $fileContent = $this->fileReader->getContentAsArray($filePath);
+        $fileContent = $this->fileHelper->getContentAsArray($filePath);
 
         if (empty($fileContent)) {
             return;
