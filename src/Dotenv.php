@@ -2,6 +2,7 @@
 
 namespace Climbx\Dotenv;
 
+use Climbx\Dotenv\Bag\DotenvBag;
 use Climbx\Filesystem\FileHelper;
 use Climbx\Dotenv\Loader\Loader;
 use Climbx\Dotenv\Loader\LoaderInterface;
@@ -20,6 +21,7 @@ class Dotenv implements DotenvInterface
         $this->parser = new Parser();
         $this->loader = new Loader();
     }
+
     /**
      * @inheritDoc
      */
@@ -58,5 +60,19 @@ class Dotenv implements DotenvInterface
         }
 
         $this->loader->overLoad($data);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getEnvData(string $filePath): DotenvBag | false
+    {
+        if (!$this->fileHelper->isReadable($filePath)) {
+            return false;
+        }
+
+        $fileContent = $this->fileHelper->getContentAsArray($filePath);
+
+        return new DotenvBag($this->parser->getParsedData($fileContent));
     }
 }
