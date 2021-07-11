@@ -2,6 +2,7 @@
 
 namespace Climbx\Dotenv\Tests;
 
+use Climbx\Dotenv\Bag\DotenvBag;
 use Climbx\Dotenv\Dotenv;
 use PHPUnit\Framework\TestCase;
 
@@ -20,6 +21,7 @@ use PHPUnit\Framework\TestCase;
  * @covers \Climbx\Dotenv\Parser\ValueStepEndParser
  * @covers \Climbx\Dotenv\Parser\Reference
  * @covers \Climbx\Dotenv\Parser\Char
+ * @covers \Climbx\Dotenv\Bag\DotenvBag
  */
 class DotenvTest extends TestCase
 {
@@ -165,5 +167,44 @@ class DotenvTest extends TestCase
 
         $this->assertEquals($env, $_ENV);
         $this->assertEquals($server, $_SERVER);
+    }
+
+    public function testGetEnvDataWithMissingEnvFile()
+    {
+        $dotenv = new Dotenv();
+        $data = $dotenv->getEnvData('/path/to/missing/env/file');
+
+        $this->assertFalse($data);
+    }
+
+    public function testGetEnvDataWithEmptyEnvFile()
+    {
+        $dotenv = new Dotenv();
+
+        $tmpdir = sys_get_temp_dir();
+        $filePath = tempnam($tmpdir, 'env');
+
+        $data = $dotenv->getEnvData($filePath);
+
+        $this->assertEquals(DotenvBag::class, get_class($data));
+        $this->assertEmpty($data->getAll());
+
+        unlink($filePath);
+    }
+
+    public function testGetEnvDataWithData()
+    {
+        $dotenv = new Dotenv();
+
+        $tmpdir = sys_get_temp_dir();
+        $filePath = tempnam($tmpdir, 'env');
+        file_put_contents($filePath, "FOO=BAR\nBAZ=1234");
+
+        $data = $dotenv->getEnvData($filePath);
+
+        $this->assertTrue($data->has('FOO'));
+        $this->assertEquals('1234', $data->get('BAZ'));
+
+        unlink($filePath);
     }
 }
