@@ -2,6 +2,8 @@
 
 namespace Climbx\Dotenv;
 
+use Climbx\Dotenv\Bag\DotenvBag;
+
 /**
  * @package Climbx\Dotenv
  */
@@ -24,4 +26,15 @@ interface DotenvInterface
      * @param string $filePath
      */
     public function overload(string $filePath): void;
+
+    /**
+     * Returns a parsed .env data bag.
+     *
+     * If the .env file is missing, the method returns false.
+     *
+     * @param string $filePath
+     *
+     * @return DotenvBag|false
+     */
+    public function getEnvData(string $filePath): DotenvBag | false;
 }
